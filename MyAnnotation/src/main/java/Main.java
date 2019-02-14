@@ -54,7 +54,8 @@ public class Main {
             method = nazar.getDeclaredMethod("method1", int.class);
             method.setAccessible(true);
             try {
-                System.out.println(method.invoke(customClass,1));
+
+                System.out.println("method" + method.invoke(customClass,1));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -67,11 +68,65 @@ public class Main {
         }
 
 
+        //5 task = Set value into field not knowing its type.
 
 
+        try {
+            Field field = nazar.getDeclaredField("field3");
+            field.setAccessible(true);
+            if (field.getType().equals(String.class))
+
+            {
+                try {
+                    field.set(customClass, "task5");
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println(customClass.getField3());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
 
+        //task6
+        try {
+            method = nazar.getDeclaredMethod("myMethod", String[].class);
 
+
+                String[] a= {"Hello", "world"};
+
+            try {
+                method.invoke(customClass,new Object[]{new String[]{"hello", "World!"}});
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            method = nazar.getDeclaredMethod("myMethod", String.class, int[].class);
+
+
+            String[] a= {"Hello", "world"};
+
+            try {
+                method.invoke(customClass,"task6, option2",new int[]{2,3,6,7});
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
 
     }
